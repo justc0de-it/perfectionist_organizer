@@ -30,11 +30,11 @@ for music_format in music_folder:
             result = name_file.split(str(music_format), 1)
             os.rename(default_path_d + result[0] + music_format, default_path_u + music_folder.get(music_format) + result[0] + music_format)
 #Проверяем есть ли в папке загрузок изображения. Если есть, кидаем их в папку Изображения
-for pic_fromat in pic_folder:
+for pic_format in pic_folder:
     for name_file in downloads_path:
         if name_file.endswith(pic_fromat):
             result = name_file.split(str(pic_fromat), 1)
-            os.rename(default_path_d + result[0] + pic_fromat, default_path_u + pic_folder.get(pic_fromat) + result[0] + pic_fromat)
+            os.rename(default_path_d + result[0] + pic_fromat, default_path_u + pic_folder.get(pic_format) + result[0] + pic_fromat)
 #Проверяем есть ли в папке загрузок документы или архивы. Если есть, кидаем их в папку Документы
 for doc_format in doc_folder:
     for name_file in downloads_path:
