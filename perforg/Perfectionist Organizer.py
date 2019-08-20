@@ -13,7 +13,7 @@ user_downloads_path = input("Как у вас называется папка с
 usermane = getpass.getuser()
 #Задаём путь к папке с загрузками для конкретного пользователя
 downloads_path = os.listdir("/home/" + usermane + "/" + user_downloads_path)
-#Путь до папки загрузок
+#Путь до папки с загрузками
 default_path_d = "/home/" + usermane + "/" + user_downloads_path + "/"
 # Путь вида /home/имяпользователя
 default_path_u = "/home/" + usermane + "/"
