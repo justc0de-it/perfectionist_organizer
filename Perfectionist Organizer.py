@@ -12,11 +12,11 @@ user_downloads_path = input("Как у вас называется папка с
 #Определяем имя пользователя в системе
 usermane = getpass.getuser()
 #Задаём путь к папке с загрузками для конкретного пользователя
-downloads_path = os.listdir('/home/' + usermane + "/" + user_downloads_path)
+downloads_path = os.listdir("/home/" + usermane + "/" + user_downloads_path)
 #Путь до папки загрузок
-default_path_d = '/home/' + usermane + "/" + user_downloads_path + "/"
+default_path_d = "/home/" + usermane + "/" + user_downloads_path + "/"
 # Путь вида /home/имяпользователя
-default_path_u = '/home/' + usermane + "/"
+default_path_u = "/home/" + usermane + "/"
 #Проверяем есть ли в папке загрузок видеофайлы. Если есть, кидаем их в папку Видео
 for video_format in video_folder:
     for name_file in downloads_path:
@@ -32,9 +32,9 @@ for music_format in music_folder:
 #Проверяем есть ли в папке загрузок изображения. Если есть, кидаем их в папку Изображения
 for pic_format in pic_folder:
     for name_file in downloads_path:
-        if name_file.endswith(pic_fromat):
-            result = name_file.split(str(pic_fromat), 1)
-            os.rename(default_path_d + result[0] + pic_fromat, default_path_u + pic_folder.get(pic_format) + result[0] + pic_fromat)
+        if name_file.endswith(pic_format):
+            result = name_file.split(str(pic_format), 1)
+            os.rename(default_path_d + result[0] + pic_format, default_path_u + pic_folder.get(pic_format) + result[0] + pic_format)
 #Проверяем есть ли в папке загрузок документы или архивы. Если есть, кидаем их в папку Документы
 for doc_format in doc_folder:
     for name_file in downloads_path:
