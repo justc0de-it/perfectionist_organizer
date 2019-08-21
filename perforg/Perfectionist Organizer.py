@@ -3,6 +3,9 @@ import os
 import re
 import getpass
 import shutil
+import platform
+#Проверка операционной системы, которой пользуется юзер
+type_os = platform.system()
 #Создание словарей с расширениями файлов и папкой, куда их нужно перекинуть
 video_folder = {".3gp" : "Видео/", ".avi" : "Видео/", ".flv" : "Видео/", ".m4v" : "Видео/", ".mkv" : "Видео/", ".mov" : "Видео/", ".mp4" : "Видео/", ".wmv" : "Видео/", ".webm" : "Видео/"}
 music_folder = {".mp3" : "Музыка/", ".aac": "Музыка/", ".flac" : "Музыка/", ".mpc" : "Музыка/", ".wma" : "Музыка/", ".wav" : "Музыка/"}
@@ -12,12 +15,15 @@ doc_folder = {".doc" : "Документы/", ".docx" : "Документы/", "
 user_downloads_path = input("Как у вас называется папка с загрузками? (по-умолчанию: Загрузки) ") or "Загрузки"
 #Определяем имя пользователя в системе
 usermane = getpass.getuser()
-#Задаём путь к папке с загрузками для конкретного пользователя
-downloads_path = os.listdir("/home/" + usermane + "/" + user_downloads_path)
 #Путь до папки с загрузками
 default_path_d = "/home/" + usermane + "/" + user_downloads_path + "/"
-# Путь вида /home/имяпользователя
+default_path_d_win = r"C:/Documents and settings/" + usermane + r"/" + user_downloads_path+ r"/"
+#Задаём путь к папке с загрузками для конкретного пользователя
+downloads_path = os.listdir("/home/" + usermane + "/" + user_downloads_path)
+downloads_path_win = os.listdir(r"C:/Documents and settings/" + usermane + r"/" + user_downloads_path)
+# Путь вида /домашняяпапка/имяпользователя
 default_path_u = "/home/" + usermane + "/"
+default_path_u_win = r"C:/Documents and settings/" + usermane + r"/"
 #Проверяем есть ли в папке загрузок видеофайлы. Если есть, кидаем их в папку Видео
 for video_format in video_folder:
     for name_file in downloads_path:
@@ -32,10 +38,16 @@ for music_format in music_folder:
             os.rename(default_path_d + result[0] + music_format, default_path_u + music_folder.get(music_format) + result[0] + music_format)
 #Проверяем есть ли в папке загрузок изображения. Если есть, кидаем их в папку Изображения
 for pic_format in pic_folder:
-    for name_file in downloads_path:
-        if name_file.endswith(pic_format):
-            result = name_file.split(str(pic_format), 1)
-            os.rename(default_path_d + result[0] + pic_format, default_path_u + pic_folder.get(pic_format) + result[0] + pic_format)
+    if type_os == "Linux":
+        for name_file in downloads_path:
+            if name_file.endswith(pic_format):
+                result = name_file.split(str(pic_format), 1)
+                os.rename(default_path_d + result[0] + pic_format, default_path_u + pic_folder.get(pic_format) + result[0] + pic_format)
+    if type_os == "Windows":
+        for name_file in downloads_path_win:
+            if name_file.endswith(pic_format):
+                result = name_file.split(str(pic_format), 1)
+                os.rename(default_path_d_win + result[0] + pic_format, default_path_u_win + pic_folder.get(pic_format) + result[0] + pic_format)
 #Проверяем есть ли в папке загрузок документы или архивы. Если есть, кидаем их в папку Документы
 for doc_format in doc_folder:
     for name_file in downloads_path:
