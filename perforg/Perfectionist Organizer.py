@@ -41,3 +41,12 @@ for doc_format in doc_folder:
         if name_file.endswith(doc_format):
             result = name_file.split(str(doc_format), 1)
             os.rename(default_path_d + result[0] + doc_format, default_path_u + doc_folder.get(doc_format) + result[0] + doc_format)
+#Запрос на удаление оставшихся файлов в директории загрузок
+delete_user_confirm = input('Удалить из папки загрузок оставшиеся файлы? Напишите да или нет (по-умолчанию: нет) ' or 'нет')
+if delete_user_confirm == 'да':
+    files_to_remove = os.listdir(default_path_d)
+    for remove_files in files_to_remove:
+        #print(remove_files)
+        os.remove(default_path_d + "/" + remove_files)
+else:
+    print('Программа завершила работу. Все файлы размещены.')
