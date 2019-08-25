@@ -22,8 +22,10 @@ class ExampleApp(QtWidgets.QMainWindow, design.Ui_main_window):
         # и т.д. в файле design.py
         super().__init__()
         self.setupUi(self)  # Это нужно для инициализации нашего дизайна
-        self.start_button.clicked.connect(self.move_files)
-    def move_files(self):
+        self.start_button.clicked.connect(self.move_and_del_files)
+        self.start_button.clicked.connect(self.progbar_completed)
+        self.label_finish.setText(" ")
+    def move_and_del_files(self):
         user_downloads_path = self.label_downloads_answer.text()
         default_path_d_win = r"C:/Users/" + usermane + r"/" + user_downloads_path + r"/"
         default_path_u_win = r"C:/Users/" + usermane + r"/"
@@ -33,6 +35,33 @@ class ExampleApp(QtWidgets.QMainWindow, design.Ui_main_window):
                 if name_file.endswith(music_format):
                     result = name_file.split(str(music_format), 1)
                     os.rename(default_path_d_win + result[0] + music_format, default_path_u_win + "Music" + r"/" + result[0] + music_format)
+        for video_format in video_folder:
+            for name_file in downloads_path_win:
+                if name_file.endswith(video_format):
+                    result = name_file.split(str(video_format), 1)
+                    os.rename(default_path_d_win + result[0] + video_format, default_path_u_win + "Videos" + r"/" + result[0] + video_format)
+        for pic_format in pic_folder:
+             for name_file in downloads_path_win:
+                if name_file.endswith(pic_format):
+                    result = name_file.split(str(pic_format), 1)
+                    os.rename(default_path_d_win + result[0] + pic_format, default_path_u_win + "Pictures" + r"/" + result[0] + pic_format)
+        for doc_format in doc_folder:
+            for name_file in downloads_path_win:
+                if name_file.endswith(doc_format):
+                    result = name_file.split(str(doc_format), 1)
+                    os.rename(default_path_d_win + result[0] + doc_format, default_path_u_win + "Documents" + r"/" + result[0] + doc_format)
+        if self.delete_answer_yes.isChecked():
+            files_to_remove = os.listdir(default_path_d_win)
+            for remove_files in files_to_remove:
+                os.remove(default_path_d_win + "/" + remove_files)
+        
+    def progbar_completed(self):
+        self.completed = 0
+        while self.completed < 100:
+            self.completed += 0.0001
+            self.progressBar.setValue(self.completed)
+        self.start_button.setEnabled(False)
+        self.label_finish.setText("<html><head/><body><p align=\"center\">Программа завершила работу. Все файлы размещены.</p></body></html>")
 def main():
     app = QtWidgets.QApplication(sys.argv)  # Новый экземпляр QApplication
     window = ExampleApp()  # Создаём объект класса ExampleApp
