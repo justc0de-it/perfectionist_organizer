@@ -1,2 +1,2 @@
 # justcodeit
-Just a code
+Just a code!
