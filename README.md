@@ -4,4 +4,15 @@
 Имеется версия для двух операционных систем - Linux (консольная версия) и Windows (версия с графическим интерфейсом).
 
 ## Установка консольной версии (Linux)
-Чтобы установить 
+Чтобы установить консольную версию откройте терминал и введите следующие команды:
+
+    git clone https://github.com/justcodeit-git/perfectionist_organizer.git
+После скачивания репозитария введите в терминале команду:
+
+    cd perfectionist_organizer
+Для систем, основанных на Ubuntu введите в терминале команду:     
+
+    python3 perfectionist_organizer.py
+Для систем, основанных на Archlinux введите в терминале команду:
+
+    python perfectionist_organizer.py
