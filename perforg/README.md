@@ -3,4 +3,5 @@
 
 Имеется версия для двух операционных систем - Linux ([консольная версия](https://github.com/x6nder/justcodeit/tree/master/perforg/console_version)) и Windows ([версия с графическим интерфейсом](https://github.com/x6nder/justcodeit/tree/master/perforg/gui_version)).
 
-##Установка консольной версии (Linux)
+## Установка консольной версии (Linux)
+Чтобы установить 
