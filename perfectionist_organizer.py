@@ -19,13 +19,6 @@ def get_user_downloads_path(type_os):
         return input("Как у вас называется папка с загрузками? (по-умолчанию: Загрузки) ") or "Downloads"
 
 
-# Проверяем есть ли в папке загрузок <>файлы. Если есть, кидаем их в папку <>
-def move_files(downloads_path, file_formats, format_folder):
-    for name_file in downloads_path.iterdir():
-        if name_file.suffix() in file_formats:
-            os.rename(downloads_path / name_file, format_folder / name_file)
-
-
 def main():
     #Проверка операционной системы, которой пользуется юзер
     type_os = platform.system()
@@ -41,8 +34,12 @@ def main():
         folders = {"Видео/": video_formats, "Музыка/": music_formats, "Изображения/": pic_formats, "Документы/": doc_formats}
     else:
         folders = {"Videos/": video_formats, "Music/": music_formats, "Pictures/": pic_formats, "Documents/": doc_formats}
+
+    # Проверяем есть ли в папке загрузок файлы определённого формата. Если есть, кидаем их в соответствующую папку
     for format_folder, file_formats in folders:
-        move_files(default_path_d, file_formats, default_path_u / format_folder)
+        for name_file in default_path_d.iterdir():
+            if name_file.suffix() in file_formats:
+                os.rename(default_path_d / name_file, format_folder / name_file)
 
     #Запрос на удаление оставшихся файлов в директории загрузок
     delete_user_confirm = input('Удалить из папки загрузок оставшиеся файлы? Напишите да или нет (по-умолчанию: нет) ' or 'нет')
