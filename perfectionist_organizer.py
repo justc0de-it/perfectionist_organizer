@@ -28,45 +28,39 @@ def main():
         user_downloads_path = input("Как у вас называется папка с загрузками? (по-умолчанию: Загрузки) ") or "Downloads"
     #Определяем имя пользователя в системе
     usermane = getpass.getuser()
-    #Путь до папки с загрузками
-    if type_os == "Linux":
-        default_path_d = "/home/" + usermane + "/" + user_downloads_path + "/"
-    else:
-        default_path_d_win = r"C:/Users/" + usermane + r"/" + user_downloads_path+ r"/"
-    #Задаём путь к папке с загрузками для конкретного пользователя
-    if type_os == "Linux":
-        downloads_path = os.listdir("/home/" + usermane + "/" + user_downloads_path)
-    else:
-        downloads_path_win = os.listdir(r"C:/Users/" + usermane + r"/" + user_downloads_path)
     # Путь вида /домашняяпапка/имяпользователя
     if type_os == "Linux":
         default_path_u = "/home/" + usermane + "/"
     else:
-        default_path_u_win = r"C:/Users/" + usermane + r"/"
+        default_path_u = r"C:/Users/" + usermane + r"/"
+    #Путь до папки с загрузками
+    default_path_d = default_path_u + user_downloads_path + "/"
+    #Задаём путь к папке с загрузками для конкретного пользователя
+    downloads_path = os.listdir(default_path_d)
     #Проверяем есть ли в папке загрузок видеофайлы. Если есть, кидаем их в папку Видео
     for video_format in video_formats:
         if type_os == "Linux":
             move_files(downloads_path, video_format, default_path_d, default_path_u + "Видео/")
         if type_os == "Windows":
-            move_files(downloads_path_win, video_format, default_path_d_win, default_path_u_win + "Videos/")
+            move_files(downloads_path, video_format, default_path_d, default_path_u + "Videos/")
     #Проверяем есть ли в папке загрузок аудиофайлы. Если есть, кидаем их в папку Музыка
     for music_format in music_formats:
         if type_os == "Linux":
             move_files(downloads_path, music_format, default_path_d, default_path_u + "Музыка/")
         if type_os == "Windows":
-            move_files(downloads_path_win, music_format, default_path_d_win, default_path_u_win + "Music/")
+            move_files(downloads_path, music_format, default_path_d, default_path_u + "Music/")
     #Проверяем есть ли в папке загрузок изображения. Если есть, кидаем их в папку Изображения
     for pic_format in pic_formats:
         if type_os == "Linux":
             move_files(downloads_path, pic_format, default_path_d, default_path_u + "Изображения/")
         if type_os == "Windows":
-            move_files(downloads_path_win, pic_format, default_path_d_win, default_path_u_win + "Pictures/")
+            move_files(downloads_path, pic_format, default_path_d, default_path_u + "Pictures/")
     #Проверяем есть ли в папке загрузок документы или архивы. Если есть, кидаем их в папку Документы
     for doc_format in doc_formats:
         if type_os == "Linux":
             move_files(downloads_path, doc_format, default_path_d, default_path_u + "Документы/")
         if type_os == "Windows":
-            move_files(downloads_path_win, doc_format, default_path_d_win, default_path_u_win + "Documents/")
+            move_files(downloads_path, doc_format, default_path_d, default_path_u + "Documents/")
     #Запрос на удаление оставшихся файлов в директории загрузок
     delete_user_confirm = input('Удалить из папки загрузок оставшиеся файлы? Напишите да или нет (по-умолчанию: нет) ' or 'нет')
     if delete_user_confirm == 'да':
@@ -75,9 +69,9 @@ def main():
             for remove_files in files_to_remove:
                 os.remove(default_path_d + "/" + remove_files)
         if type_os == "Windows":
-            files_to_remove = os.listdir(default_path_d_win)
+            files_to_remove = os.listdir(default_path_d)
             for remove_files in files_to_remove:
-                os.remove(default_path_d_win + "/" + remove_files)
+                os.remove(default_path_d + "/" + remove_files)
     else:
         print('Программа завершила работу. Все файлы размещены.')
 
