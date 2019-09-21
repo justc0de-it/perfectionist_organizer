@@ -64,14 +64,9 @@ def main():
     #Запрос на удаление оставшихся файлов в директории загрузок
     delete_user_confirm = input('Удалить из папки загрузок оставшиеся файлы? Напишите да или нет (по-умолчанию: нет) ' or 'нет')
     if delete_user_confirm == 'да':
-        if type_os == "Linux":
-            files_to_remove = os.listdir(default_path_d)
-            for remove_files in files_to_remove:
-                os.remove(default_path_d + "/" + remove_files)
-        if type_os == "Windows":
-            files_to_remove = os.listdir(default_path_d)
-            for remove_files in files_to_remove:
-                os.remove(default_path_d + "/" + remove_files)
+        files_to_remove = os.listdir(default_path_d)
+        for remove_files in files_to_remove:
+            os.remove(default_path_d + "/" + remove_files)
     else:
         print('Программа завершила работу. Все файлы размещены.')
 
