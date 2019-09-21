@@ -15,7 +15,7 @@ doc_formats = [".doc", ".docx", ".txt", ".rtf", ".pdf", ".fb2", ".djvu", ".xls",
 def get_user_downloads_path(type_os):
     if type_os == "Linux":
         return input("Как у вас называется папка с загрузками? (по-умолчанию: Загрузки) ") or "Загрузки"
-    if type_os == "Windows":
+    elif type_os == "Windows":
         return input("Как у вас называется папка с загрузками? (по-умолчанию: Загрузки) ") or "Downloads"
 
 
@@ -29,6 +29,8 @@ def move_files(downloads_files, file_format, downloads_path, format_folder):
 def main():
     #Проверка операционной системы, которой пользуется юзер
     type_os = platform.system()
+    if type_os not in ("Linux", "Windows"):
+        return
     user_downloads_path = get_user_downloads_path(type_os)
     #Определяем имя пользователя в системе
     usermane = getpass.getuser()
@@ -42,10 +44,9 @@ def main():
     #Задаём путь к папке с загрузками для конкретного пользователя
     downloads_path = os.listdir(default_path_d)
 
-    folders = {}
     if type_os == "Linux":
         folders = {"Видео/": video_formats, "Музыка/": music_formats, "Изображения/": pic_formats, "Документы/": doc_formats}
-    if type_os == "Windows":
+    else:
         folders = {"Videos/": video_formats, "Music/": music_formats, "Pictures/": pic_formats, "Documents/": doc_formats}
     for format_folder, file_formats in folders:
         for file_format in file_formats:
