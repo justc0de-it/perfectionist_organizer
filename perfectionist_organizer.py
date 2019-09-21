@@ -4,17 +4,11 @@ import getpass
 import platform
 
 # Создание словарей с расширениями файлов и папкой, куда их нужно перекинуть
-video_folder = {".3gp": "Видео/", ".avi": "Видео/", ".flv": "Видео/", ".m4v": "Видео/", ".mkv": "Видео/",
-                ".mov": "Видео/", ".mp4": "Видео/", ".wmv": "Видео/", ".webm": "Видео/"}
-music_folder = {".mp3": "Музыка/", ".aac": "Музыка/", ".flac": "Музыка/", ".mpc": "Музыка/", ".wma": "Музыка/",
-                ".wav": "Музыка/"}
-pic_folder = {".raw": "Изображения/", ".jpg": "Изображения/", ".tiff": "Изображения/", ".psd": "Изображения/",
-              ".bmp": "Изображения/", ".gif": "Изображения/", ".png": "Изображения/", ".jp2": "Изображения/",
-              ".jpeg": "Изображения/"}
-doc_folder = {".doc": "Документы/", ".docx": "Документы/", ".txt": "Документы/", ".rtf": "Документы/",
-              ".pdf": "Документы/", ".fb2": "Документы/", ".djvu": "Документы/", ".xls": "Документы/",
-              ".xlsx": "Документы/", ".ppt": "Документы/", ".pptx": "Документы/", ".mdb": "Документы/",
-              ".accdb": "Документы/", ".rar": "Документы/", ".zip": "Документы/", ".7z": "Документы/"}
+video_formats = [".3gp", ".avi", ".flv", ".m4v", ".mkv", ".mov", ".mp4", ".wmv", ".webm"]
+music_formats = [".mp3", ".aac", ".flac", ".mpc", ".wma", ".wav"]
+pic_formats = [".raw", ".jpg", ".tiff", ".psd", ".bmp", ".gif", ".png", ".jp2", ".jpeg"]
+doc_formats = [".doc", ".docx", ".txt", ".rtf", ".pdf", ".fb2", ".djvu", ".xls",
+               ".xlsx", ".ppt", ".pptx", ".mdb", ".accdb", ".rar", ".zip", ".7z"]
 
 
 # Проверяем есть ли в папке загрузок <>файлы. Если есть, кидаем их в папку <>
@@ -50,27 +44,27 @@ def main():
     else:
         default_path_u_win = r"C:/Users/" + usermane + r"/"
     #Проверяем есть ли в папке загрузок видеофайлы. Если есть, кидаем их в папку Видео
-    for video_format in video_folder:
+    for video_format in video_formats:
         if type_os == "Linux":
-            move_files(downloads_path, video_format, default_path_d, default_path_u + video_folder.get(video_format))
+            move_files(downloads_path, video_format, default_path_d, default_path_u + "Видео/")
         if type_os == "Windows":
             move_files(downloads_path_win, video_format, default_path_d_win, default_path_u_win + "Videos/")
     #Проверяем есть ли в папке загрузок аудиофайлы. Если есть, кидаем их в папку Музыка
-    for music_format in music_folder:
+    for music_format in music_formats:
         if type_os == "Linux":
-            move_files(downloads_path, music_format, default_path_d, default_path_u + music_folder.get(music_format))
+            move_files(downloads_path, music_format, default_path_d, default_path_u + "Музыка/")
         if type_os == "Windows":
             move_files(downloads_path_win, music_format, default_path_d_win, default_path_u_win + "Music/")
     #Проверяем есть ли в папке загрузок изображения. Если есть, кидаем их в папку Изображения
-    for pic_format in pic_folder:
+    for pic_format in pic_formats:
         if type_os == "Linux":
-            move_files(downloads_path, pic_format, default_path_d, default_path_u + pic_folder.get(pic_format))
+            move_files(downloads_path, pic_format, default_path_d, default_path_u + "Изображения/")
         if type_os == "Windows":
             move_files(downloads_path_win, pic_format, default_path_d_win, default_path_u_win + "Pictures/")
     #Проверяем есть ли в папке загрузок документы или архивы. Если есть, кидаем их в папку Документы
-    for doc_format in doc_folder:
+    for doc_format in doc_formats:
         if type_os == "Linux":
-            move_files(downloads_path, doc_format, default_path_d, default_path_u + doc_folder.get(doc_format))
+            move_files(downloads_path, doc_format, default_path_d, default_path_u + "Документы/")
         if type_os == "Windows":
             move_files(downloads_path_win, doc_format, default_path_d_win, default_path_u_win + "Documents/")
     #Запрос на удаление оставшихся файлов в директории загрузок
