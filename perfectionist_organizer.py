@@ -15,7 +15,7 @@ doc_formats = [".doc", ".docx", ".txt", ".rtf", ".pdf", ".fb2", ".djvu", ".xls",
 def get_user_downloads_path(type_os):
     if type_os == "Linux":
         return input("Как у вас называется папка с загрузками? (по-умолчанию: Загрузки) ") or "Загрузки"
-    elif type_os == "Windows":
+    if type_os == "Windows":
         return input("Как у вас называется папка с загрузками? (по-умолчанию: Загрузки) ") or "Downloads"
 
 
@@ -31,21 +31,22 @@ def main():
     default_path_d = default_path_u / user_downloads_path
 
     if type_os == "Linux":
-        folders = {"Видео/": video_formats, "Музыка/": music_formats, "Изображения/": pic_formats, "Документы/": doc_formats}
+        folders = {"Видео": video_formats, "Музыка": music_formats, "Изображения": pic_formats, "Документы": doc_formats}
     else:
-        folders = {"Videos/": video_formats, "Music/": music_formats, "Pictures/": pic_formats, "Documents/": doc_formats}
+        folders = {"Videos": video_formats, "Music": music_formats, "Pictures": pic_formats, "Documents": doc_formats}
 
     # Проверяем есть ли в папке загрузок файлы определённого формата. Если есть, кидаем их в соответствующую папку
-    for format_folder, file_formats in folders:
+    for format_folder, file_formats in folders.items():
         for name_file in default_path_d.iterdir():
-            if name_file.suffix() in file_formats:
-                os.rename(default_path_d / name_file, format_folder / name_file)
+            if name_file.suffix in file_formats:
+                name_file.rename(default_path_u / format_folder / name_file.name)
 
     #Запрос на удаление оставшихся файлов в директории загрузок
     delete_user_confirm = input('Удалить из папки загрузок оставшиеся файлы? Напишите да или нет (по-умолчанию: нет) ' or 'нет')
     if delete_user_confirm == 'да':
         for remove_files in default_path_d.iterdir():
-            os.remove(default_path_d / remove_files)
+            if remove_files.is_file():
+                remove_files.unlink()
     else:
         print('Программа завершила работу. Все файлы размещены.')
 
