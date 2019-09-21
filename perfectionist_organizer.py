@@ -17,6 +17,13 @@ doc_folder = {".doc": "Документы/", ".docx": "Документы/", ".t
               ".accdb": "Документы/", ".rar": "Документы/", ".zip": "Документы/", ".7z": "Документы/"}
 
 
+# Проверяем есть ли в папке загрузок <>файлы. Если есть, кидаем их в папку <>
+def move_files(downloads_files, file_format, downloads_path, format_folder):
+    for name_file in downloads_files:
+        if name_file.endswith(file_format):
+            os.rename(downloads_path + name_file, format_folder + name_file)
+
+
 def main():
     #Проверка операционной системы, которой пользуется юзер
     type_os = platform.system()
@@ -45,51 +52,27 @@ def main():
     #Проверяем есть ли в папке загрузок видеофайлы. Если есть, кидаем их в папку Видео
     for video_format in video_folder:
         if type_os == "Linux":
-            for name_file in downloads_path:
-                if name_file.endswith(video_format):
-                    result = name_file.split(str(video_format), 1)
-                    os.rename(default_path_d + result[0] + video_format, default_path_u + video_folder.get(video_format) + result[0] + video_format)
+            move_files(downloads_path, video_format, default_path_d, default_path_u + video_folder.get(video_format))
         if type_os == "Windows":
-            for name_file in downloads_path_win:
-                if name_file.endswith(video_format):
-                    result = name_file.split(str(video_format), 1)
-                    os.rename(default_path_d_win + result[0] + video_format, default_path_u_win + "Videos" + r"/" + result[0] + video_format)
+            move_files(downloads_path_win, video_format, default_path_d_win, default_path_u_win + "Videos/")
     #Проверяем есть ли в папке загрузок аудиофайлы. Если есть, кидаем их в папку Музыка
     for music_format in music_folder:
         if type_os == "Linux":
-            for name_file in downloads_path:
-                if name_file.endswith(music_format):
-                    result = name_file.split(str(music_format), 1)
-                    os.rename(default_path_d + result[0] + music_format, default_path_u + music_folder.get(music_format) + result[0] + music_format)
+            move_files(downloads_path, music_format, default_path_d, default_path_u + music_folder.get(music_format))
         if type_os == "Windows":
-            for name_file in downloads_path_win:
-                if name_file.endswith(music_format):
-                    result = name_file.split(str(music_format), 1)
-                    os.rename(default_path_d_win + result[0] + music_format, default_path_u_win + "Music" + r"/" + result[0] + music_format)
+            move_files(downloads_path_win, music_format, default_path_d_win, default_path_u_win + "Music/")
     #Проверяем есть ли в папке загрузок изображения. Если есть, кидаем их в папку Изображения
     for pic_format in pic_folder:
         if type_os == "Linux":
-            for name_file in downloads_path:
-                if name_file.endswith(pic_format):
-                    result = name_file.split(str(pic_format), 1)
-                    os.rename(default_path_d + result[0] + pic_format, default_path_u + pic_folder.get(pic_format) + result[0] + pic_format)
+            move_files(downloads_path, pic_format, default_path_d, default_path_u + pic_folder.get(pic_format))
         if type_os == "Windows":
-            for name_file in downloads_path_win:
-                if name_file.endswith(pic_format):
-                    result = name_file.split(str(pic_format), 1)
-                    os.rename(default_path_d_win + result[0] + pic_format, default_path_u_win + "Pictures" + r"/" + result[0] + pic_format)
+            move_files(downloads_path_win, pic_format, default_path_d_win, default_path_u_win + "Pictures/")
     #Проверяем есть ли в папке загрузок документы или архивы. Если есть, кидаем их в папку Документы
     for doc_format in doc_folder:
         if type_os == "Linux":
-            for name_file in downloads_path:
-                if name_file.endswith(doc_format):
-                    result = name_file.split(str(doc_format), 1)
-                    os.rename(default_path_d + result[0] + doc_format, default_path_u + doc_folder.get(doc_format) + result[0] + doc_format)
+            move_files(downloads_path, doc_format, default_path_d, default_path_u + doc_folder.get(doc_format))
         if type_os == "Windows":
-            for name_file in downloads_path_win:
-                if name_file.endswith(doc_format):
-                    result = name_file.split(str(doc_format), 1)
-                    os.rename(default_path_d_win + result[0] + doc_format, default_path_u_win + "Documents" + r"/" + result[0] + doc_format)
+            move_files(downloads_path_win, doc_format, default_path_d_win, default_path_u_win + "Documents/")
     #Запрос на удаление оставшихся файлов в директории загрузок
     delete_user_confirm = input('Удалить из папки загрузок оставшиеся файлы? Напишите да или нет (по-умолчанию: нет) ' or 'нет')
     if delete_user_confirm == 'да':
