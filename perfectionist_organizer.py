@@ -41,30 +41,16 @@ def main():
     default_path_d = default_path_u + user_downloads_path + "/"
     #Задаём путь к папке с загрузками для конкретного пользователя
     downloads_path = os.listdir(default_path_d)
-    #Проверяем есть ли в папке загрузок видеофайлы. Если есть, кидаем их в папку Видео
-    for video_format in video_formats:
-        if type_os == "Linux":
-            move_files(downloads_path, video_format, default_path_d, default_path_u + "Видео/")
-        if type_os == "Windows":
-            move_files(downloads_path, video_format, default_path_d, default_path_u + "Videos/")
-    #Проверяем есть ли в папке загрузок аудиофайлы. Если есть, кидаем их в папку Музыка
-    for music_format in music_formats:
-        if type_os == "Linux":
-            move_files(downloads_path, music_format, default_path_d, default_path_u + "Музыка/")
-        if type_os == "Windows":
-            move_files(downloads_path, music_format, default_path_d, default_path_u + "Music/")
-    #Проверяем есть ли в папке загрузок изображения. Если есть, кидаем их в папку Изображения
-    for pic_format in pic_formats:
-        if type_os == "Linux":
-            move_files(downloads_path, pic_format, default_path_d, default_path_u + "Изображения/")
-        if type_os == "Windows":
-            move_files(downloads_path, pic_format, default_path_d, default_path_u + "Pictures/")
-    #Проверяем есть ли в папке загрузок документы или архивы. Если есть, кидаем их в папку Документы
-    for doc_format in doc_formats:
-        if type_os == "Linux":
-            move_files(downloads_path, doc_format, default_path_d, default_path_u + "Документы/")
-        if type_os == "Windows":
-            move_files(downloads_path, doc_format, default_path_d, default_path_u + "Documents/")
+
+    folders = {}
+    if type_os == "Linux":
+        folders = {"Видео/": video_formats, "Музыка/": music_formats, "Изображения/": pic_formats, "Документы/": doc_formats}
+    if type_os == "Windows":
+        folders = {"Videos/": video_formats, "Music/": music_formats, "Pictures/": pic_formats, "Documents/": doc_formats}
+    for format_folder, file_formats in folders:
+        for file_format in file_formats:
+            move_files(downloads_path, file_format, default_path_d, default_path_u + format_folder)
+
     #Запрос на удаление оставшихся файлов в директории загрузок
     delete_user_confirm = input('Удалить из папки загрузок оставшиеся файлы? Напишите да или нет (по-умолчанию: нет) ' or 'нет')
     if delete_user_confirm == 'да':
