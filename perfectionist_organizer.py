@@ -1,8 +1,6 @@
 #Импорт необходимых библиотек
 import os
-import re
 import getpass
-import shutil
 import platform
 #Проверка операционной системы, которой пользуется юзер
 type_os = platform.system()
@@ -15,7 +13,7 @@ doc_folder = {".doc" : "Документы/", ".docx" : "Документы/", "
 if type_os == "Linux":
     user_downloads_path = input("Как у вас называется папка с загрузками? (по-умолчанию: Загрузки) ") or "Загрузки"
 if type_os == "Windows":
-    user_downloads_path = input("Как у вас называется папка с загрузками? (по-умолчанию: Загрузки) ") or "Downloads"    
+    user_downloads_path = input("Как у вас называется папка с загрузками? (по-умолчанию: Загрузки) ") or "Downloads"
 #Определяем имя пользователя в системе
 usermane = getpass.getuser()
 #Путь до папки с загрузками
