@@ -1,6 +1,7 @@
 #Импорт необходимых библиотек
 import os
 import platform
+from pathlib import Path
 
 # Создание словарей с расширениями файлов и папкой, куда их нужно перекинуть
 video_formats = [".3gp", ".avi", ".flv", ".m4v", ".mkv", ".mov", ".mp4", ".wmv", ".webm"]
@@ -19,10 +20,10 @@ def get_user_downloads_path(type_os):
 
 
 # Проверяем есть ли в папке загрузок <>файлы. Если есть, кидаем их в папку <>
-def move_files(downloads_files, file_format, downloads_path, format_folder):
-    for name_file in downloads_files:
-        if name_file.endswith(file_format):
-            os.rename(os.path.join(downloads_path, name_file), os.path.join(format_folder, name_file))
+def move_files(downloads_path, file_formats, format_folder):
+    for name_file in downloads_path.iterdir():
+        if name_file.suffix() in file_formats:
+            os.rename(downloads_path / name_file, format_folder / name_file)
 
 
 def main():
@@ -32,26 +33,22 @@ def main():
         return
     user_downloads_path = get_user_downloads_path(type_os)
     # Путь вида /домашняяпапка/имяпользователя
-    default_path_u = os.path.expanduser('~')
+    default_path_u = Path.home()
     #Путь до папки с загрузками
-    default_path_d = os.path.join(default_path_u, user_downloads_path)
-    #Задаём путь к папке с загрузками для конкретного пользователя
-    downloads_path = os.listdir(default_path_d)
+    default_path_d = default_path_u / user_downloads_path
 
     if type_os == "Linux":
         folders = {"Видео/": video_formats, "Музыка/": music_formats, "Изображения/": pic_formats, "Документы/": doc_formats}
     else:
         folders = {"Videos/": video_formats, "Music/": music_formats, "Pictures/": pic_formats, "Documents/": doc_formats}
     for format_folder, file_formats in folders:
-        for file_format in file_formats:
-            move_files(downloads_path, file_format, default_path_d, os.path.join(default_path_u, format_folder))
+        move_files(default_path_d, file_formats, default_path_u / format_folder)
 
     #Запрос на удаление оставшихся файлов в директории загрузок
     delete_user_confirm = input('Удалить из папки загрузок оставшиеся файлы? Напишите да или нет (по-умолчанию: нет) ' or 'нет')
     if delete_user_confirm == 'да':
-        files_to_remove = os.listdir(default_path_d)
-        for remove_files in files_to_remove:
-            os.remove(os.path.join(default_path_d, remove_files))
+        for remove_files in default_path_d.iterdir():
+            os.remove(default_path_d / remove_files)
     else:
         print('Программа завершила работу. Все файлы размещены.')
 
