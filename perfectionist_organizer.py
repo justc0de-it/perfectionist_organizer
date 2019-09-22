@@ -1,4 +1,5 @@
 # Импорт необходимых библиотек
+import argparse
 from pathlib import Path
 import platform
 
@@ -19,6 +20,9 @@ def get_user_downloads_path(type_os):
 
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-d', action='store_true', dest='delete_rest_files', help='Удалить из папки загрузок оставшиеся файлы')
+    args = parser.parse_args()
     # Проверка операционной системы, которой пользуется юзер
     type_os = platform.system()
     if type_os not in ("Linux", "Windows"):
@@ -41,9 +45,8 @@ def main():
             if name_file.suffix in file_formats:
                 name_file.rename(default_path_u / format_folder / name_file.name)
 
-    # Запрос на удаление оставшихся файлов в директории загрузок
-    delete_user_confirm = input('Удалить из папки загрузок оставшиеся файлы? Напишите да или нет (по-умолчанию: нет) ' or 'нет')
-    if delete_user_confirm == 'да':
+    # Удаление оставшихся файлов в директории загрузок
+    if args.delete_rest_files:
         for remove_files in default_path_d.iterdir():
             if remove_files.is_file():
                 remove_files.unlink()
