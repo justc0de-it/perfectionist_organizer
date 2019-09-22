@@ -1,8 +1,6 @@
 #Импорт необходимых библиотек
 import os
-import re
 import getpass
-import shutil
 import platform
 #Проверка операционной системы, которой пользуется юзер
 type_os = platform.system()
