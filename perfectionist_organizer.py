@@ -15,22 +15,22 @@ if type_os == "Linux":
 if type_os == "Windows":
     user_downloads_path = input("Как у вас называется папка с загрузками? (по-умолчанию: Загрузки) ") or "Downloads"    
 #Определяем имя пользователя в системе
-usermane = getpass.getuser()
+username = getpass.getuser()
 #Путь до папки с загрузками
 if type_os == "Linux":
-    default_path_d = "/home/" + usermane + "/" + user_downloads_path + "/"
+    default_path_d = "/home/" + username + "/" + user_downloads_path + "/"
 else:
-    default_path_d_win = r"C:/Users/" + usermane + r"/" + user_downloads_path+ r"/"
+    default_path_d_win = r"C:/Users/" + username + r"/" + user_downloads_path+ r"/"
 #Задаём путь к папке с загрузками для конкретного пользователя
 if type_os == "Linux":
-    downloads_path = os.listdir("/home/" + usermane + "/" + user_downloads_path)
+    downloads_path = os.listdir("/home/" + username + "/" + user_downloads_path)
 else:
-    downloads_path_win = os.listdir(r"C:/Users/" + usermane + r"/" + user_downloads_path)
+    downloads_path_win = os.listdir(r"C:/Users/" + username + r"/" + user_downloads_path)
 # Путь вида /домашняяпапка/имяпользователя
 if type_os == "Linux":
-    default_path_u = "/home/" + usermane + "/"
+    default_path_u = "/home/" + username + "/"
 else:
-    default_path_u_win = r"C:/Users/" + usermane + r"/"
+    default_path_u_win = r"C:/Users/" + username + r"/"
 #Проверяем есть ли в папке загрузок видеофайлы. Если есть, кидаем их в папку Видео
 for video_format in video_folder:
     if type_os == "Linux":
