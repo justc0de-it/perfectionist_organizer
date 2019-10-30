@@ -1,4 +1,5 @@
 #Импорт необходимых библиотек
+#Надо всё менять
 import os
 import getpass
 import platform
