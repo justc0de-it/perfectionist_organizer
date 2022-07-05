@@ -5,17 +5,25 @@
 
 ## Установка консольной версии (Linux)
 
-Чтобы установить консольную версию откройте терминал и введите следующие команды:
+1. Чтобы установить консольную версию откройте терминал и введите следующие команды:
 
-    git clone https://github.com/justcodeit-git/perfectionist_organizer.git
+<pre><code>git clone https://github.com/justcodeit-git/perfectionist_organizer.git</code></pre>
+
 После скачивания репозитария введите в терминале команду:
 
-    cd perfectionist_organizer
-Для систем, основанных на Ubuntu введите в терминале команду:     
+<pre><code>cd perfectionist_organizer</code></pre>
 
-    python3 perfectionist_organizer.py
-Для систем, основанных на Archlinux введите в терминале команду:
+3. Для систем, основанных на Ubuntu введите в терминале команду:     
 
-    python perfectionist_organizer.py
+<pre><code>python3 perfectionist_organizer.py</code></pre>
+
+4. Для систем, основанных на Archlinux введите в терминале команду:
+
+<pre><code>python perfectionist_organizer.py</code></pre>
+
 ## Установка версии с графическим интерфейсом (Windows)
-Перейдите по [ссылке для скачивания](https://go-gl.com/nDH) и загрузите на компьютер самораспаковывающийся архив. После загрузки дважды кликните по скачанному файлу и выберите место для установки программы. После установки перейдите в папку, куда установили Perfectionist Organizer и запустите файл c расширением exe.
+Перейдите по [ссылке для скачивания](https://disk.yandex.ru/d/cPlg443haXVHvA) и загрузите на компьютер самораспаковывающийся архив. После загрузки дважды кликните по скачанному файлу и выберите место для установки программы. После установки перейдите в папку, куда установили Perfectionist Organizer и запустите файл c расширением exe.
+
+## ЕСТЬ ОБНОВЛЕННАЯ ВЕРСИЯ ПРОГРАММЫ (ТОЛЬКО ДЛЯ LINUX)
+
+Она находится в другом моем репозитарии: [Perfectionist Organizer 2.0](https://github.com/bantikgames/pfo2_0)
