@@ -7,7 +7,7 @@
 
 1. Чтобы установить консольную версию откройте терминал и введите следующие команды:
 
-<pre><code>git clone https://github.com/justcodeit-git/perfectionist_organizer.git</code></pre>
+<pre><code>git clone https://github.com/justc0de-it/perfectionist_organizer.git</code></pre>
 
 После скачивания репозитария введите в терминале команду:
 
